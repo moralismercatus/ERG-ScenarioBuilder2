@@ -3,6 +3,8 @@
 #include "floortile.h"
 
 #include <QInputDialog>
+#include <QScrollBar>
+#include <QPixmap>
 
 FloorWidget::FloorWidget(QWidget *parent) :
     QWidget(parent),
@@ -71,6 +73,22 @@ void FloorWidget::create_blank_tiles()
                     //nthis, SLOT(tileClicked(FloorTile*)));
         }
     }
-    //int sw = ui->scrollArea->verticalScrollBar()->width();
-    ui->scrollArea->setMaximumSize(DEFAULT_FLOOR_GRID_SIZE * 222 /*+ sw*/, DEFAULT_FLOOR_GRID_SIZE * 222 /*+ sw*/);
+
+    //int sw(ui->scrollArea->verticalScrollBar()->width());
+    //ui->scrollArea->setMinimumSize(DEFAULT_FLOOR_GRID_SIZE * 222 + sw, DEFAULT_FLOOR_GRID_SIZE * 222 + sw);
+    //ui->scrollArea->setMaximumSize(DEFAULT_FLOOR_GRID_SIZE * 222 + sw, DEFAULT_FLOOR_GRID_SIZE * 222 + sw);
+
+    //ui->labelNorthPix->setStyleSheet("background-image: url(C:/Users/Chris/git/miller-time/ERG/src/web/img/R000-west.jpg)");
+    //ui->labelNorthPix->setGeometry(ui->labelNorthPix->geometry());
+    QPixmap pixmap("C:/Users/Chris/git/miller-time/ERG/src/web/img/R000-west.jpg");
+    ui->labelNorthPix->setPixmap(pixmap.scaled(ui->labelNorthPix->geometry().width(), ui->labelNorthPix->geometry().width()));
+    ui->labelEastPix->setPixmap(pixmap.scaled(ui->labelEastPix->geometry().width(), ui->labelEastPix->geometry().width()));
+    ui->labelSouthPix->setPixmap(pixmap.scaled(ui->labelSouthPix->geometry().width(), ui->labelSouthPix->geometry().width()));
+    ui->labelWestPix->setPixmap(pixmap.scaled(ui->labelWestPix->geometry().width(), ui->labelWestPix->geometry().width()));
+}
+
+void FloorWidget::load_floor(const std::shared_ptr<Floor>& floor)
+{
+    ui->floorSelector->addItem(floor->name());
+    ui->floorSelector->setEnabled(true);
 }

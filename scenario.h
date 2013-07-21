@@ -11,14 +11,7 @@
 class Scenario;
 class Floor;
 
-class Registry
-{
-public:
-    static std::shared_ptr<Scenario> instance() { return scenario_; }
-    static void set(const std::shared_ptr<Scenario>& scenario) { scenario_ = scenario; }
-private:
-    static std::shared_ptr<Scenario> scenario_;
-};
+QJsonObject get_object(const QJsonObject& jo, const QString& key);
 
 class Json
 {
@@ -36,16 +29,17 @@ public:
     void from_json(const QJsonObject& jo);
 
     QString name() const { return name_; }
+    QVector<std::shared_ptr<Floor>>& floors() { return floors_; }
 
 private:
     QString name_;
-    QVector<Floor> floors_;
+    QVector<std::shared_ptr<Floor>> floors_;
 };
 
 class Floor : public Json
 {
 public:
-    Floor(const std::string& name);
+    Floor(const QString& name);
 
     QJsonObject to_json() const;
     void from_json(const QJsonObject& jo);

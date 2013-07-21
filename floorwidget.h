@@ -32,6 +32,8 @@ private slots:
 
     void on_floorSelector_currentIndexChanged(const QString &arg1);
 
+    void load_floor(const std::shared_ptr<Floor>& floor);
+
 private:
     Ui::FloorWidget* ui;
 

@@ -23,7 +23,10 @@ HEADERS  += mainwindow.h \
     floorwidget.h \
     scenario.h \
     floortile.h \
-    test_environment.h
+    test_environment.h \
+    exception.h \
+    main_directory.h \
+    registry.h
 
 FORMS    += mainwindow.ui \
     floorwidget.ui \

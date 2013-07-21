@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTabWidget>
+#include <QErrorMessage>
 
 #include "scenario.h"
 #include "floorwidget.h"
@@ -21,6 +22,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+signals:
+    void load_floor(const std::shared_ptr<Floor>& floor);
     
 private slots:
     void on_newScenario_triggered();
@@ -28,15 +32,19 @@ private slots:
     void on_loadScenario_triggered();
 
 protected:
+    void make_connections();
     void setup_tabs();
     void setup_floor_tab();
-    QString query_scenario_path();
+    QString prompt_for_scenario_path();
     void load_scenario(QString path);
+    void strip_json_variable(QByteArray& doc);
+    void prompt_for_main_dir();
 
 private:
     Ui::MainWindow *ui;
-    std::unique_ptr<QTabWidget> wTab_;
+    QTabWidget* wTab_;
     std::unique_ptr<FloorWidget> floorwidget_;
+    std::unique_ptr<QErrorMessage> errmsg_;
 };
 
 #endif // MAINWINDOW_H
